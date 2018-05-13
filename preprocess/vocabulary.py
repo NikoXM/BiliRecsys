@@ -16,9 +16,11 @@ class Vocab:
         results = self.cursor.execute(self.query_content_sql_string).fetchall()
         for result_turple in results:
             content_string = result_turple[0]
-            words_list = jieba.cut(content_string)
-            for word in words_list:
-                raw_vocab[word] = raw_vocab.get(word, 0) + 1
+            # words_list = jieba.cut(content_string)
+            for word in content_string:
+                raw_vocab[word] = raw_vocab.get(word, 0) + 1  
+            # for word in words_list:
+            #     raw_vocab[word] = raw_vocab.get(word, 0) + 1
         self.raw_vocab = raw_vocab
         if top_n:
             stopword = list(map(lambda x: x[0], sorted(self.raw_vocab.items(), key=lambda x: x[1])[-top_n:]))
