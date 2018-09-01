@@ -29,8 +29,8 @@ class Vocab:
                 for line in vocab_file.readlines():
                     temp_string = line.split()
                     key_string = temp_string[0]                      
-                    value_string = temp_string[1]
-                    self.token2id_dict[key_string] = value_string
+                    value_int = int(temp_string[1])
+                    self.token2id_dict[key_string] = value_int
             self.is_created_bool = True
             return
         raw_vocab = {}
@@ -66,7 +66,7 @@ class Vocab:
     def convert2id(self, _danmu_list, max_sequence_len_int = 150): 
         danmu_id_list = list()
         for sentence_string in _danmu_list:
-            danmu_id_list.append([self.token2id_dict.get(word,'0') for word in sentence_string] + ['0']*(max_sequence_len_int - len(sentence_string)))
+            danmu_id_list.append([self.token2id_dict.get(word,0) for word in sentence_string] + [0]*(max_sequence_len_int - len(sentence_string)))
         return danmu_id_list
 
 if __name__=="__main__":
